@@ -1,5 +1,5 @@
 // frontend/src/components/Level3.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import './Level3.css';
@@ -43,6 +43,7 @@ function Level3() {
   const [isAttacking, setIsAttacking] = useState(false);
   const [isVictory, setIsVictory] = useState(false);
   const [isDefeated, setIsDefeated] = useState(false);
+  const [strengths, setStrengths] = useState([]);
   const [error, setError] = useState(null);
 
   const { isListening, transcript, startListening, stopListening } = useSpeechRecognition();
@@ -95,26 +96,14 @@ function Level3() {
         if (!res.ok) throw new Error('Network response was not ok');
         return res.json();
       })
-      .then(() => {
-        // Data fetched successfully, but we're not using it.
-      })
+      .then(data => setStrengths(data))
       .catch(err => {
         console.error("Could not fetch strengths:", err);
         setError("Could not load strengths. Is the backend server running?");
       });
   }, []);
 
-  useEffect(() => {
-    if (transcript && !isListening) {
-      const cleanTranscript = transcript.trim().toLowerCase().replace(/[.,!?;]/g, '');
-      const cleanPrompt = prompt.toLowerCase().replace(/[.,!?;]/g, '');
-      if (cleanTranscript.includes(cleanPrompt)) {
-        handleAttack();
-      }
-    }
-  }, [transcript, isListening, handleAttack, prompt]);
-
-  const handleAttack = () => {
+  const handleAttack = useCallback(() => {
     if (doubtHealth <= 0) return;
 
     playSwordSound();
@@ -134,7 +123,17 @@ function Level3() {
         setPrompt(powerPhrases[nextIndex]);
       }, 2000);
     }
-  };
+  }, [doubtHealth, prompt]);
+
+  useEffect(() => {
+    if (transcript && !isListening) {
+      const cleanTranscript = transcript.trim().toLowerCase().replace(/[.,!?;]/g, '');
+      const cleanPrompt = prompt.toLowerCase().replace(/[.,!?;]/g, '');
+      if (cleanTranscript.includes(cleanPrompt)) {
+        handleAttack();
+      }
+    }
+  }, [transcript, isListening, prompt, handleAttack]);
 
   if (error) {
     return <div className="level3-container" style={level3ContainerStyle}><h1>Error</h1><p>{error}</p></div>;
