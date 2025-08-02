@@ -1,0 +1,171 @@
+/* frontend/src/components/Level1.css */
+
+.level1-container {
+  display: flex;
+  gap: 20px;
+  width: 95vw;
+  height: 90vh;
+  background-color: #3c414e;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.game-area {
+  flex: 3;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.instructions {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  z-index: 10;
+}
+
+.game-character {
+  position: absolute;
+  width: 50px;
+  height: 75px;
+  z-index: 5;
+}
+
+.shop-section {
+  position: absolute;
+  border: 3px dashed #f7797d;
+  border-radius: 10px;
+  z-index: 1;
+  font-size: 0;
+  background-color: rgba(247, 121, 125, 0.2);
+}
+
+/* --- REPOSITIONED THE ZONES --- */
+.dresses-section { top: 20px; left: 15px; width: 170px; height: 160px; }
+.pants-section { top: 20px; right: 175px; width: 150px; height: 160px; }
+/* --- FOOTWEAR SECTION MOVED TO BOTTOM-RIGHT --- */
+.footwear-section { bottom: 20px; right: 20px; width: 350px; height: 180px; }
+
+
+/* --- SELECTION PANEL MOVED BACK TO BOTTOM-CENTER --- */
+.selection-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%); /* This centers the panel */
+  background-color: #4a4e58;
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid white;
+  z-index: 20;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.selection-panel h4 { margin-top: 0; text-transform: uppercase; }
+
+.panel-items-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.panel-item-card {
+  background-color: #5c5f66;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+.panel-item-card:hover { background-color: #f7797d; }
+.panel-item-card img { width: 100%; height: 60px; object-fit: contain; }
+.panel-item-card span { font-size: 0.8rem; display: block; }
+
+.mannequin-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #282c34;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.mannequin { 
+  width: 200px;
+  height: 400px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.mannequin-layer { 
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  object-fit: contain;
+}
+
+.dress-item { top: 0; height: 90%; z-index: 2; }
+.top-item { top: 5%; height: 50%; z-index: 3; }
+.pants-item { top: 48%; height: 52%; z-index: 2; }
+.footwear-item { top: 88%; height: 15%; z-index: 4; }
+
+.verify-button { margin-top: auto; padding: 10px 25px; font-size: 1.1rem; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }@keyframes fill-bar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.level-complete-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.walkway {
+  width: 60%;
+  height: 10px;
+  position: relative;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.walkway-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0; /* Starts at 0 width */
+  background-color: #28a745; /* Green color */
+  border-radius: 5px;
+}
+
+/* This rule starts the animation when the 'walking' class is added */
+.walkway.walking .walkway-fill {
+  animation: fill-bar 3s linear forwards;
+}
+
+
+/* ... other styles are the same ... */
+
+.walking-character {
+  position: absolute;
+  bottom: 0;
+  height: 80px;
+  width: 60px;
+  transition: left 3s linear;
+  left: 20%; /* Starting position */
+}
+
+/* --- ADD THIS RULE --- */
+.walking-character.walking {
+  left: 80%; /* Ending position */
+}

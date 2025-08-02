@@ -1,0 +1,150 @@
+/* frontend/src/components/Level2.css */
+
+/* --- Start Screen Styles --- */
+.start-screen-l2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.start-content {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  border: 2px solid white;
+  z-index: 10;
+}
+
+.start-button {
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #f7797d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+.start-button:disabled {
+  background-color: #5c5f66;
+  cursor: not-allowed;
+}
+
+/* --- Grandma and Message Cloud Styles --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.grandma-character {
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  height: 400px;
+  z-index: 5;
+}
+
+.message-cloud { position: absolute; bottom: 300px; /* Adjusted bottom */ left: 180px; /* Adjusted left */ width: 350px; /* Increased width */ height: 180px; /* Increased height */ /* Background properties are handled in Level2.js */ display: flex; justify-content: center; align-items: center; padding: 20px; z-index: 6; animation: fadeIn 0.5s ease-out; }
+
+.message-cloud p {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  min-height: 100px;
+  transition: all 0.1s linear;
+}
+
+
+/* --- Main Kitchen Styles --- */
+.kitchen-l2 {
+  width: 90vw;
+  height: 90vh;
+  padding: 20px;
+  border-radius: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recipe-instructions-l2 {
+  background-color: rgba(44, 44, 46, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  min-height: 60px;
+  color: white;
+  border: 1px solid white;
+  position: relative;
+  z-index: 10;
+}
+
+.ingredient-on-table {
+  position: absolute;
+  z-index: 5;
+}
+
+.ingredient-card-l2 {
+  background-color: #5c5f66;
+  border-radius: 8px;
+  padding: 10px;
+  width: 120px;
+  text-align: center;
+  cursor: grab;
+}
+.ingredient-card-l2:active { cursor: grabbing; }
+.ingredient-card-l2 img {
+  width: 100%; height: 80px; object-fit: contain; pointer-events: none;
+}
+.draggable-wrapper {
+  position: relative;
+  z-index: 20;
+}
+
+.bowl-area {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+}
+.bowl {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: box-shadow 0.3s ease;
+}
+.bowl img {
+  width: 100%; height: 100%; object-fit: contain;
+}
+
+.action-buttons-l2 {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+.action-buttons-l2 button {
+  padding: 15px 30px; font-size: 1.2rem; font-weight: bold; background-color: #f7797d;
+  color: white; border: none; border-radius: 8px; cursor: pointer;
+}
+.next-level-button { background-color: #28a745; }
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+.mixing-l2 { animation: shake 0.5s 3; }

@@ -1,0 +1,59 @@
+body {
+  background-color: #282c34;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.home-container {
+  padding: 2rem;
+}
+
+.level-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Space between buttons */
+  margin-top: 40px;
+}
+
+/* The 3D Button Style */
+.button-3d, .button-3d-disabled {
+  position: relative;
+  background-color: #f7797d;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, background-color 0.15s ease-out;
+  text-decoration: none;
+  box-shadow: 0 5px 0 #c75d60;
+}
+
+.button-3d:hover {
+  background-color: #f99194;
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 #c75d60;
+}
+
+.button-3d:active {
+  transform: translateY(5px);
+  box-shadow: 0 0px 0 #c75d60;
+}
+
+/* Style for disabled buttons */
+.button-3d-disabled {
+  background-color: #5c5f66;
+  box-shadow: 0 5px 0 #3e4147;
+  cursor: not-allowed;
+}
