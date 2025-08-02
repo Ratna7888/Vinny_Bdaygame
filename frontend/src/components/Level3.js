@@ -43,7 +43,6 @@ function Level3() {
   const [isAttacking, setIsAttacking] = useState(false);
   const [isVictory, setIsVictory] = useState(false);
   const [isDefeated, setIsDefeated] = useState(false);
-  const [strengths, setStrengths] = useState([]);
   const [error, setError] = useState(null);
 
   const { isListening, transcript, startListening, stopListening } = useSpeechRecognition();
@@ -91,12 +90,14 @@ function Level3() {
   }, [dialogueStarted, messageIndex]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/strengths')
+    fetch(`${process.env.REACT_APP_API_URL}/api/strengths`)
       .then(res => {
         if (!res.ok) throw new Error('Network response was not ok');
         return res.json();
       })
-      .then(data => setStrengths(data))
+      .then(() => {
+        // Data fetched successfully, but we're not using it.
+      })
       .catch(err => {
         console.error("Could not fetch strengths:", err);
         setError("Could not load strengths. Is the backend server running?");
@@ -111,7 +112,7 @@ function Level3() {
         handleAttack();
       }
     }
-  }, [transcript, isListening]);
+  }, [transcript, isListening, prompt]);
 
   const handleAttack = () => {
     if (doubtHealth <= 0) return;

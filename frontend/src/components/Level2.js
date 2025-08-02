@@ -1,5 +1,5 @@
 // frontend/src/components/Level2.js
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';  // ✅ clean
 import { useNavigate } from 'react-router-dom';
 import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
 import './Level2.css';
@@ -115,7 +115,7 @@ function Level2() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/recipe/cheesecake')
+    fetch('`${process.env.REACT_APP_API_URL}/api/recipe/cheesecake')
       .then(res => res.json())
       .then(data => { setRecipe(data); });
   }, []);
