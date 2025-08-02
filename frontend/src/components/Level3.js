@@ -112,7 +112,7 @@ function Level3() {
         handleAttack();
       }
     }
-  }, [transcript, isListening, prompt]);
+  }, [transcript, isListening, handleAttack, prompt]);
 
   const handleAttack = () => {
     if (doubtHealth <= 0) return;

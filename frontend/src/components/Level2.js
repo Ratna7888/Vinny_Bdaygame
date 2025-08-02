@@ -115,7 +115,7 @@ function Level2() {
   };
 
   useEffect(() => {
-    fetch('`${process.env.REACT_APP_API_URL}/api/recipe/cheesecake')
+    fetch('${process.env.REACT_APP_API_URL}/api/recipe/cheesecake')
       .then(res => res.json())
       .then(data => { setRecipe(data); });
   }, []);
