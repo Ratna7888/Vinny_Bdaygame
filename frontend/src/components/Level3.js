@@ -1,5 +1,5 @@
 // frontend/src/components/Level3.js
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import './Level3.css';
@@ -19,19 +19,20 @@ const masterMessages = [
 ];
 
 const level3ContainerStyle = {
-  backgroundImage: `url("/images/battle-background.jpg")`,
+  backgroundImage: 'url("/images/battle-background.jpg")',
   backgroundSize: "cover",
-  backgroundPosition: "center"
+  backgroundPosition: "center",
 };
 
 const messageCloudStyle = {
-  backgroundImage: `url("/images/message-cloud.png")`,
+  backgroundImage: 'url("/images/message-cloud.png")',
   backgroundSize: 'contain',
   backgroundRepeat: 'no-repeat'
 };
 
 function Level3() {
   const navigate = useNavigate();
+
   const [gameStarted, setGameStarted] = useState(false);
   const [dialogueStarted, setDialogueStarted] = useState(false);
   const [dialogueComplete, setDialogueComplete] = useState(false);
@@ -46,6 +47,7 @@ function Level3() {
   const [error, setError] = useState(null);
 
   const { isListening, transcript, startListening, stopListening } = useSpeechRecognition();
+
   const buttonClickSound = useRef(null);
   const swordSound = useRef(null);
 
@@ -54,8 +56,13 @@ function Level3() {
     swordSound.current = new Audio('/sounds/sword.mp3');
   }, []);
 
-  const playButtonSound = () => buttonClickSound.current?.play().catch(() => {});
-  const playSwordSound = () => swordSound.current?.play().catch(() => {});
+  const playButtonSound = () => {
+    buttonClickSound.current?.play().catch(() => {});
+  };
+
+  const playSwordSound = () => {
+    swordSound.current?.play().catch(() => {});
+  };
 
   useEffect(() => {
     if (!dialogueStarted || messageIndex >= masterMessages.length) return;
@@ -74,7 +81,8 @@ function Level3() {
           setDialogueComplete(true);
         }
       } else {
-        setDisplayedText(words.slice(0, wordCount).join(' '));
+        const nextText = words.slice(0, wordCount).join(' ');
+        setDisplayedText(nextText);
         wordCount++;
       }
     }, 200);
@@ -95,7 +103,17 @@ function Level3() {
       });
   }, []);
 
-  const handleAttack = useCallback(() => {
+  useEffect(() => {
+    if (transcript && !isListening) {
+      const cleanTranscript = transcript.trim().toLowerCase().replace(/[.,!?;]/g, '');
+      const cleanPrompt = prompt.toLowerCase().replace(/[.,!?;]/g, '');
+      if (cleanTranscript.includes(cleanPrompt)) {
+        handleAttack();
+      }
+    }
+  }, [transcript, isListening]);
+
+  const handleAttack = () => {
     if (doubtHealth <= 0) return;
 
     playSwordSound();
@@ -115,19 +133,7 @@ function Level3() {
         setPrompt(powerPhrases[nextIndex]);
       }, 2000);
     }
-  }, [doubtHealth, prompt]);
-
-  useEffect(() => {
-    if (transcript && !isListening) {
-      const cleanTranscript = transcript.trim().toLowerCase().replace(/[.,!?;]/g, '');
-      const cleanPrompt = prompt.toLowerCase().replace(/[.,!?;]/g, '');
-      if (cleanTranscript.includes(cleanPrompt)) {
-        handleAttack();
-      } else {
-        console.log('Mismatch:', cleanTranscript, 'vs', cleanPrompt);
-      }
-    }
-  }, [transcript, isListening, prompt, handleAttack]);
+  };
 
   if (error) {
     return <div className="level3-container" style={level3ContainerStyle}><h1>Error</h1><p>{error}</p></div>;
@@ -137,6 +143,7 @@ function Level3() {
     return (
       <div className="level3-container intro-screen-l3" style={level3ContainerStyle}>
         <img src="/images/fight-master.png" alt="Fight Master" className="fight-master-character" />
+
         {!dialogueStarted && (
           <button className="start-challenge-button" onClick={() => {
             playButtonSound();
@@ -145,16 +152,18 @@ function Level3() {
             Speak to the Master
           </button>
         )}
+
         {dialogueStarted && !dialogueComplete && (
           <div className="message-cloud master-cloud" style={messageCloudStyle}>
             <p>{displayedText}</p>
           </div>
         )}
+
         {dialogueComplete && (
           <button className="start-challenge-button" onClick={() => {
             playButtonSound();
             setGameStarted(true);
-            setTimeout(() => setPrompt(powerPhrases[0]), 300);  // slight delay to avoid race condition
+            setPrompt(powerPhrases[0]);
           }}>
             Begin Challenge!
           </button>
@@ -169,9 +178,17 @@ function Level3() {
     <div className="level3-container" style={level3ContainerStyle}>
       <h1>Use Your Voice!</h1>
       <div className="battle-arena-l3">
-        <img src="/images/character-sword.png" alt="Character" className={`player-character ${isAttacking ? 'swing' : ''}`} />
+        <img
+          src="/images/character-sword.png"
+          alt="Character"
+          className={`player-character ${isAttacking ? 'swing' : ''}`}
+        />
         <div className="doubt-monster-container">
-          <img src="/images/doubt-monster-pixel.png" alt="Doubt Monster" className={`doubt-monster ${isDefeated ? 'defeated' : ''}`} />
+          <img
+            src="/images/doubt-monster-pixel.png"
+            alt="Doubt Monster"
+            className={`doubt-monster ${isDefeated ? 'defeated' : ''}`}
+          />
           <div className="health-bar-container">
             <div className="health-bar" style={{ width: `${healthPercentage}%` }}></div>
           </div>
@@ -179,15 +196,11 @@ function Level3() {
       </div>
 
       <div className="speech-area">
-        {prompt ? (
-          <div className="prompt-text">
-            Say this phrase aloud: <strong>"{prompt}"</strong>
-          </div>
-        ) : (
-          <div className="prompt-text loading">Preparing your challenge...</div>
-        )}
+        <div className="prompt-text">
+          Say this phrase aloud: <strong>"{prompt}"</strong>
+        </div>
         <div className="transcript-box">
-          {isListening ? transcript : <em>Press and speak</em>}
+          {isListening ? transcript : <em></em>}
         </div>
         <button
           className="speak-button"
@@ -199,15 +212,6 @@ function Level3() {
         >
           {isListening ? 'Listening...' : 'Hold to Speak'}
         </button>
-
-        {strengths.length > 0 && (
-          <div className="strengths-box">
-            <p>Your Strengths:</p>
-            <ul>
-              {strengths.map((str, index) => <li key={index}>{str}</li>)}
-            </ul>
-          </div>
-        )}
       </div>
 
       {isVictory && (
