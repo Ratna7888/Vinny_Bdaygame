@@ -15,11 +15,13 @@ const platforms = [
   { x: 0, y: 450, width: 300 },
   { x: 450, y: 450, width: 1000 },
 ];
+
 const lights = [
   { id: 0, x: 250, y: 420 },
   { id: 1, x: 600, y: 420 },
   { id: 2, x: 850, y: 420 },
 ];
+
 const initialCharacterPos = { x: 50, y: 390 };
 
 function SpyQuiz() {
@@ -48,7 +50,6 @@ function SpyQuiz() {
   const walkSound = useRef(null);
   const isWalking = useRef(false);
 
-  // Load sounds
   useEffect(() => {
     buttonSound.current = new Audio('/sounds/button-click.mp3');
     walkSound.current = new Audio('/sounds/walk.mp3');
@@ -79,7 +80,7 @@ function SpyQuiz() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/spy-questions')
+    fetch(`${process.env.REACT_APP_API_URL}/api/spy-questions`)
       .then(res => res.json())
       .then(data => setQuestions(data));
   }, []);
@@ -157,7 +158,7 @@ function SpyQuiz() {
       cancelAnimationFrame(gameLoopId.current);
       stopWalkSound();
     };
-  }, [showQuestion]);
+  }, [showQuestion, answeredLights]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
