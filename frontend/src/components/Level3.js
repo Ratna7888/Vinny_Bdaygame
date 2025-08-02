@@ -208,6 +208,17 @@ function Level3() {
         >
           {isListening ? 'Listening...' : 'Hold to Speak'}
         </button>
+
+        {strengths.length > 0 && (
+          <div className="strengths-box">
+            <p>Your Strengths:</p>
+            <ul>
+              {strengths.map((str, index) => (
+                <li key={index}>{str}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       {isVictory && (
