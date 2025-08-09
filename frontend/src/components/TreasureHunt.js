@@ -101,7 +101,7 @@ function TreasureHunt() {
         <div className="birthday-overlay">
           <div className="birthday-card">
             <h1>Happy Birthday, Vinny </h1>
-            <p>You are an amazing person and I'm so lucky to have you. I hope you enjoyed this little adventure!</p>
+            <p>You are an amazing person and I'm so lucky to have you. I hope you enjoyed this little adventure! Even though my arms can't hug you, I hope my thoughts can.</p>
             <p>With all my love,</p>
             <p>[Kanna]</p>
           </div>

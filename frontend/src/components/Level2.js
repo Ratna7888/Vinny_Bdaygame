@@ -48,6 +48,16 @@ const grandmaMessages = [
   "Just follow the recipe and have fun!"
 ];
 
+// ✅ Move allIngredients up so it's defined before any possible return
+const allIngredients = [
+  { name: "Graham Crackers", image: "/images/cheesecake/graham-crackers.png", pos: { top: '15%', left: '10%' } },
+  { name: "Sugar", image: "/images/cheesecake/sugar.png", pos: { top: '35%', left: '5%' } },
+  { name: "Melted Butter", image: "/images/cheesecake/melted-butter.png", pos: { top: '55%', left: '10%' } },
+  { name: "Cream Cheese", image: "/images/cheesecake/cream-cheese.png", pos: { top: '15%', right: '10%' } },
+  { name: "Eggs", image: "/images/cheesecake/eggs.png", pos: { top: '35%', right: '5%' } },
+  { name: "Vanilla Extract", image: "/images/cheesecake/vanilla.png", pos: { top: '55%', right: '10%' } },
+];
+
 function Level2() {
   useBackgroundMusic('/sounds/music-level2.mp3');
   const navigate = useNavigate();
@@ -71,15 +81,6 @@ function Level2() {
     const click = buttonClickSound.cloneNode();
     click.play();
   };
-
-  const allIngredients = [
-    { name: "Graham Crackers", image: "/images/cheesecake/graham-crackers.png", pos: { top: '15%', left: '10%' } },
-    { name: "Sugar", image: "/images/cheesecake/sugar.png", pos: { top: '35%', left: '5%' } },
-    { name: "Melted Butter", image: "/images/cheesecake/melted-butter.png", pos: { top: '55%', left: '10%' } },
-    { name: "Cream Cheese", image: "/images/cheesecake/cream-cheese.png", pos: { top: '15%', right: '10%' } },
-    { name: "Eggs", image: "/images/cheesecake/eggs.png", pos: { top: '35%', right: '5%' } },
-    { name: "Vanilla Extract", image: "/images/cheesecake/vanilla.png", pos: { top: '55%', right: '10%' } },
-  ];
 
   useEffect(() => {
     let talkInterval;
@@ -125,11 +126,20 @@ function Level2() {
     setDialogueStarted(true);
   };
 
+  // ✅ Reset state when component mounts to avoid stale data when coming from Level 1
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/recipe/cheesecake`)
+    setRecipe(null);
+    setStage('crust');
+    setStepIndex(0);
+    setIsComplete(false);
+    setMessage('Loading...');
+    fetch(`${process.env.REACT_APP_API_URL}/api/recipe/cheesecake`, { cache: "no-store" })
       .then(res => res.json())
       .then(data => {
         setRecipe(data);
+      })
+      .catch(err => {
+        console.error("Failed to fetch recipe:", err);
       });
   }, []);
 
