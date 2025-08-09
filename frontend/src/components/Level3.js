@@ -135,6 +135,22 @@ function Level3() {
     }
   };
 
+  const handleStartListening = () => {
+    if (!isListening) {
+      try {
+        startListening();
+      } catch (err) {
+        console.warn("startListening failed:", err.message);
+      }
+    }
+  };
+
+  const handleStopListening = () => {
+    if (isListening) {
+      stopListening();
+    }
+  };
+
   if (error) {
     return <div className="level3-container" style={level3ContainerStyle}><h1>Error</h1><p>{error}</p></div>;
   }
@@ -204,10 +220,10 @@ function Level3() {
         </div>
         <button
           className="speak-button"
-          onMouseDown={() => { if (!isListening) startListening(); }}
-          onMouseUp={() => { if (isListening) stopListening(); }}
-          onTouchStart={() => { if (!isListening) startListening(); }}
-          onTouchEnd={() => { if (isListening) stopListening(); }}
+          onMouseDown={handleStartListening}
+          onMouseUp={handleStopListening}
+          onTouchStart={handleStartListening}
+          onTouchEnd={handleStopListening}
           disabled={isListening}
         >
           {isListening ? 'Listening...' : 'Hold to Speak'}

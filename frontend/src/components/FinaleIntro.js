@@ -25,7 +25,7 @@ const lights = [
 const initialCharacterPos = { x: 50, y: 390 };
 
 function SpyQuiz() {
-  useBackgroundMusic('/sounds/music-spy.mp3', true, 0.05);
+  useBackgroundMusic('/sounds/music-spy.mp3', true, 0.5);
   const navigate = useNavigate();
 
   const [questions, setQuestions] = useState([]);
