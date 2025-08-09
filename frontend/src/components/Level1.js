@@ -67,7 +67,7 @@ function Level1() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/clothes')
+    fetch(`${process.env.REACT_APP_API_URL}/api/clothes`)
       .then(res => res.json())
       .then(data => setWardrobe(data));
   }, []);

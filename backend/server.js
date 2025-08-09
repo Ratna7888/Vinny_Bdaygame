@@ -2,6 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 5000;
+const cors = require("cors");
+
+app.use(cors({
+  origin: ["https://vinny-bdaygame-frontend.onrender.com/"], // your frontend Render URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 
 app.use(cors());
 app.use(express.json());
