@@ -1,53 +1,37 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 5000;
-const cors = require("cors");
+const port = process.env.PORT || 5000;
 
+// ✅ Configure CORS once
 app.use(cors({
-  origin: ["https://vinny-bdaygame-frontend.onrender.com/"], // your frontend Render URL
+  origin: [
+    "https://vinny-bdaygame-frontend.onrender.com", // your frontend on Render
+    "http://localhost:3000" // local development
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-
-app.use(cors());
 app.use(express.json());
 
-// API Endpoint for Level 1 Shopping Data
-// backend/server.js
+// ---------------------- API Endpoints ----------------------
 
-// backend/server.js
-
-// backend/server.js
-
+// Level 1 Shopping Data
 app.get('/api/clothes', (req, res) => {
   const clothes = [
-    // Dresses
     { id: 'drs1', name: 'Bodycon', imageUrl: '/images/bodycon.png', type: 'dress' },
     { id: 'drs2', name: 'Maxi', imageUrl: '/images/maxi.png', type: 'dress' },
-
-    // Tops
     { id: 'top1', name: 'Crop Top', imageUrl: '/images/croptop.png', type: 'top' },
-
-    // Pants - UPDATED
     { id: 'pnt1', name: 'Jeans', imageUrl: '/images/jeans.png', type: 'pants' },
-    { id: 'pnt2', name: 'Baggy Pants', imageUrl: '/images/baggy-pants.png', type: 'pants' }, // NEW
-
-    // Footwear
+    { id: 'pnt2', name: 'Baggy Pants', imageUrl: '/images/baggy-pants.png', type: 'pants' },
     { id: 'shoe1', name: 'Sneakers', imageUrl: '/images/sneakers.png', type: 'footwear' },
-    { id: 'shoe2', name: 'Flats', imageUrl: '/images/flats.png', type: 'footwear' }, // Assuming flats image is named heels.png, or you can change
+    { id: 'shoe2', name: 'Flats', imageUrl: '/images/flats.png', type: 'footwear' },
   ];
   res.json(clothes);
 });
 
-// backend/server.js
-
-// Add this entire block to your server file
-
-// backend/server.js
-// backend/server.js
-// backend/server.js
+// Cheesecake Recipe
 app.get('/api/recipe/cheesecake', (req, res) => {
   const recipe = {
     crust: [
@@ -59,7 +43,6 @@ app.get('/api/recipe/cheesecake', (req, res) => {
     filling: [
       { id: 'f1', text: 'Time for the filling! Start with cream cheese.', action: 'add', item: 'Cream Cheese', bowlImage: '/images/cheesecake/bowl-crust-cream-cheese.png' },
       { id: 'f2', text: 'Add the eggs.', action: 'add', item: 'Eggs', bowlImage: '/images/cheesecake/bowl-crust-cheese-eggs.png' },
-      // CORRECTED THIS LINE to use the new image you just created
       { id: 'f3', text: 'Add a little vanilla extract.', action: 'add', item: 'Vanilla Extract', bowlImage: '/images/cheesecake/bowl-with-filling-unmixed.png' },
       { id: 'f4', text: 'Mix everything together until smooth.', action: 'mix', bowlImage: '/images/cheesecake/bowl-with-filling.png' }
     ],
@@ -72,8 +55,7 @@ app.get('/api/recipe/cheesecake', (req, res) => {
   res.json(recipe);
 });
 
-// backend/server.js
-
+// Strengths List
 app.get('/api/strengths', (req, res) => {
   const strengths = [
     { id: 's1', name: 'Your Creativity' },
@@ -86,29 +68,29 @@ app.get('/api/strengths', (req, res) => {
   res.json(strengths);
 });
 
-// backend/server.js
-
+// Spy Questions
 app.get('/api/spy-questions', (req, res) => {
   const questions = [
     {
       question: "What is your secret agent codename (i.e., your favorite coffee order)?",
       answers: ["Caramel Macchiato", "Javachip Frappuchino", "Black Americano"],
-      correct: 1 // The index of the correct answer (Javachip Frappuchino)
+      correct: 1
     },
     {
       question: "Your mission is to relax. What is your go-to method?",
       answers: ["Adding items to cart(Shopping)", "cooking", "Going for a long walk"],
-      correct: 0 // Adding items to cart
+      correct: 0
     },
     {
       question: "Which of these is your superpower?",
       answers: ["Amazing fashion sense", "Baking delicious treats", "Annoying people"],
-      correct: 0 // Unshakeable confidence
+      correct: 0
     }
   ];
   res.json(questions);
 });
 
+// ---------------------- Start Server ----------------------
 app.listen(port, () => {
   console.log(`🎉 Backend server is running on http://localhost:${port}`);
 });
