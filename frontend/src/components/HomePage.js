@@ -5,17 +5,20 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './HomePage.css';
 import { useBackgroundMusic } from '../hooks/useBackgroundMusic';
 
+// Base path for assets in public folder
+const ASSET_BASE = process.env.PUBLIC_URL;
+
 const walkRightFrames = [
-  '/images/character-walk1.png',
-  '/images/character-walk2.png',
-  '/images/character-walk3.png',
-  '/images/character-walk4.png'
+  `${ASSET_BASE}/images/character-walk1.png`,
+  `${ASSET_BASE}/images/character-walk2.png`,
+  `${ASSET_BASE}/images/character-walk3.png`,
+  `${ASSET_BASE}/images/character-walk4.png`
 ];
 const walkLeftFrames = [
-  '/images/character-left1.png',
-  '/images/character-left2.png',
-  '/images/character-left3.png',
-  '/images/character-left4.png'
+  `${ASSET_BASE}/images/character-left1.png`,
+  `${ASSET_BASE}/images/character-left2.png`,
+  `${ASSET_BASE}/images/character-left3.png`,
+  `${ASSET_BASE}/images/character-left4.png`
 ];
 
 const locations = {
@@ -29,19 +32,19 @@ const locations = {
 const titleLocation = { x: 350, y: 150 };
 
 const worldMapStyle = {
-  backgroundImage: `url("/images/city/city-background.jpg")`,
+  backgroundImage: `url("${ASSET_BASE}/images/city/city-background.jpg")`,
   backgroundRepeat: 'repeat-x',
   backgroundSize: 'auto 100%',
 };
 
 function HomePage() {
-  useBackgroundMusic('/sounds/music-home.mp3', true, 0.15);
+  useBackgroundMusic(`${ASSET_BASE}/sounds/music-home.mp3`, true, 0.15);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const buttonClickSound = useRef(new Audio('/sounds/button-click.mp3'));
-  const walkingSound = useRef(new Audio('/sounds/walk.mp3'));
+  const buttonClickSound = useRef(new Audio(`${ASSET_BASE}/sounds/button-click.mp3`));
+  const walkingSound = useRef(new Audio(`${ASSET_BASE}/sounds/walk.mp3`));
   walkingSound.current.loop = true;
 
   const [currentLocation, setCurrentLocation] = useState(sessionStorage.getItem('characterLocation') || 'start');
@@ -118,7 +121,7 @@ function HomePage() {
       {showIntro && (
         <div className="intro-overlay">
           <div className="intro-content">
-            <img src="/images/character-walk1.png" alt="Mini V" className="mini-v" />
+            <img src={`${ASSET_BASE}/images/character-walk1.png`} alt="Mini V" className="mini-v" />
             <div className="intro-text">
               <h2>Heyy Vinny,</h2>
               <p>Meet <strong>Mini Vinny</strong> who is called <strong>Mini V </strong>❤️</p>
@@ -135,13 +138,21 @@ function HomePage() {
         ...worldMapStyle 
       }}>
         <div className="world-object title-image" style={{ left: `${titleLocation.x}px`, top: `${titleLocation.y}px` }}>
-          <img src="/images/city/text.png" alt="Vinny's Bday Adventure" />
+          <img src={`${ASSET_BASE}/images/city/text.png`} alt="Vinny's Bday Adventure" />
         </div>
 
-        <div className="world-object shop" style={{ left: `${locations.level1.x}px` }}><img src="/images/city/shop-dress.png" alt="Dress Shop" /></div>
-        <div className="world-object shop" style={{ left: `${locations.level2.x}px` }}><img src="/images/city/shop-bakery.png" alt="Bakery" /></div>
-        <div className="world-object shop" style={{ left: `${locations.level3.x}px` }}><img src="/images/city/shop-battlefield.png" alt="Battlefield" /></div>
-        <div className="world-object shop" style={{ left: `${locations.finale.x}px` }}><img src="/images/city/shop-spy-hq.png" alt="Spy HQ" /></div>
+        <div className="world-object shop" style={{ left: `${locations.level1.x}px` }}>
+          <img src={`${ASSET_BASE}/images/city/shop-dress.png`} alt="Dress Shop" />
+        </div>
+        <div className="world-object shop" style={{ left: `${locations.level2.x}px` }}>
+          <img src={`${ASSET_BASE}/images/city/shop-bakery.png`} alt="Bakery" />
+        </div>
+        <div className="world-object shop" style={{ left: `${locations.level3.x}px` }}>
+          <img src={`${ASSET_BASE}/images/city/shop-battlefield.png`} alt="Battlefield" />
+        </div>
+        <div className="world-object shop" style={{ left: `${locations.finale.x}px` }}>
+          <img src={`${ASSET_BASE}/images/city/shop-spy-hq.png`} alt="Spy HQ" />
+        </div>
 
         <img 
           src={characterImage} 
