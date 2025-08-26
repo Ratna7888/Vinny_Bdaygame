@@ -31,7 +31,7 @@ const locations = {
 const titleLocation = { x: 350, y: 150 };
 
 const worldMapStyle = {
-  backgroundImage: `url("/images/city/city-background.jpg")`,
+  backgroundImage: `url("/images/City/city-background.jpg")`,
   backgroundRepeat: 'repeat-x',
   backgroundSize: 'auto 100%',
 };
@@ -140,10 +140,10 @@ function HomePage() {
           <img src="/images/city/text.png" alt="Vinny's Bday Adventure" />
         </div>
 
-        <div className="world-object shop" style={{ left: `${locations.level1.x}px` }}><img src="/images/city/shop-dress.png" alt="Dress Shop" /></div>
-        <div className="world-object shop" style={{ left: `${locations.level2.x}px` }}><img src="/images/city/shop-bakery.png" alt="Bakery" /></div>
-        <div className="world-object shop" style={{ left: `${locations.level3.x}px` }}><img src="/images/city/shop-battlefield.png" alt="Battlefield" /></div>
-        <div className="world-object shop" style={{ left: `${locations.finale.x}px` }}><img src="/images/city/shop-spy-hq.png" alt="Spy HQ" /></div>
+        <div className="world-object shop" style={{ left: `${locations.level1.x}px` }}><img src="/images/City/shop-dress.png" alt="Dress Shop" /></div>
+        <div className="world-object shop" style={{ left: `${locations.level2.x}px` }}><img src="/images/City/shop-bakery.png" alt="Bakery" /></div>
+        <div className="world-object shop" style={{ left: `${locations.level3.x}px` }}><img src="/images/City/shop-battlefield.png" alt="Battlefield" /></div>
+        <div className="world-object shop" style={{ left: `${locations.finale.x}px` }}><img src="/images/City/shop-spy-hq.png" alt="Spy HQ" /></div>
 
         <img 
           src={characterImage} 
