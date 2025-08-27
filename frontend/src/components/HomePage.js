@@ -1,5 +1,3 @@
-
-
 // frontend/src/components/HomePage.js
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -146,6 +144,7 @@ function HomePage() {
         <div className="world-object shop" style={{ left: `${locations.finale.x}px` }}><img src="/images/City/shop-spy-hq.png" alt="Spy HQ" /></div>
 
         <img 
+          key={currentFrame}   // 🔥 Fix: force re-render on each frame
           src={characterImage} 
           alt="character" 
           className="map-character" 
