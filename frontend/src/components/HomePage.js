@@ -137,7 +137,7 @@ function HomePage() {
         ...worldMapStyle 
       }}>
         <div className="world-object title-image" style={{ left: `${titleLocation.x}px`, top: `${titleLocation.y}px` }}>
-          <img src="/images/city/text.png" alt="Vinny's Bday Adventure" />
+          <img src="/images/City/text.png" alt="Vinny's Bday Adventure" />
         </div>
 
         <div className="world-object shop" style={{ left: `${locations.level1.x}px` }}><img src="/images/City/shop-dress.png" alt="Dress Shop" /></div>
